@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Uma pergunta para você ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background:
+                radial-gradient(circle at top, #3a1720 0%, #1b0c10 40%, #0e090b 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 480px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(18px);
+            border-radius: 28px;
+            padding: 38px 28px;
+            text-align: center;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.45);
+            animation: aparecer 0.6s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .numero {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #dca5b3;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            font-size: 29px;
+            line-height: 1.2;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #d8c9cd;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .botoes {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button, .link-local {
+            border: none;
+            cursor: pointer;
+            padding: 14px 25px;
+            border-radius: 14px;
+            font-size: 16px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .principal {
+            background: #b84f6b;
+            color: white;
+        }
+
+        .principal:hover {
+            background: #cf617e;
+            transform: translateY(-2px);
+        }
+
+        .secundario {
+            background: rgba(255,255,255,0.10);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .secundario:hover {
+            background: rgba(255,255,255,0.16);
+        }
+
+        .estrelas {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            margin: 28px 0;
+        }
+
+        .estrela {
+            background: none;
+            padding: 0;
+            border: none;
+            font-size: 39px;
+            color: #5d454c;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .estrela.ativa {
+            color: #f3b7c6;
+            transform: scale(1.08);
+        }
+
+        .nota {
+            min-height: 25px;
+            color: #e8bac6;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .local {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.10);
+            padding: 20px;
+            border-radius: 18px;
+            margin: 20px 0 25px;
+        }
+
+        .local strong {
+            display: block;
+            font-size: 19px;
+            margin-bottom: 7px;
+        }
+
+        .local span {
+            color: #c9b9bd;
+            font-size: 14px;
+        }
+
+        .link-local {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 10px 18px;
+            background: rgba(184,79,107,0.18);
+            color: #f0bdca;
+            border: 1px solid rgba(240,189,202,0.2);
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 13px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.08);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        input::placeholder {
+            color: #a9959a;
+        }
+
+        .progresso {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            margin-top: 20px;
+        }
+
+        .ponto {
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.17);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .ponto.ativo {
+            background: #dc839b;
+            width: 18px;
+            border-radius: 10px;
+        }
+
+        .coracao {
+            font-size: 35px;
+            margin-bottom: 17px;
+        }
+
+        .resumo {
+            text-align: left;
+            background: rgba(255,255,255,0.06);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 23px 0;
+            line-height: 1.8;
+            color: #ddd0d4;
+        }
+
+        .resumo b {
+            color: white;
+        }
+
+        .mensagem-final {
+            color: #ecd8dd;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .reiniciar {
+            margin-top: 25px;
+            background: none;
+            color: #8e7b80;
+            padding: 5px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" id="app"></div>
+
+<script>
+
+    const app = document.getElementById("app");
+
+    let respostas = {
+        nota: null,
+        segundoDate: null,
+        data: null,
+        local: null,
+        horario: null
+    };
+
+    let etapa = 1;
+
+
+    function progresso(numero) {
+
+        let html = '<div class="progresso">';
+
+        for(let i = 1; i <= 5; i++) {
+
+            html += `
+                <div class="ponto ${i === numero ? 'ativo' : ''}"></div>
+            `;
+        }
+
+        html += '</div>';
+
+        return html;
+    }
+
+
+    function trocarTela(conteudo) {
+
+        app.innerHTML = `
+            <div class="card">
+                ${conteudo}
+            </div>
+        `;
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    /* --------------------------------
+       ETAPA 1
+       AVALIAÇÃO
+    -------------------------------- */
+
+    function avaliacao() {
+
+        etapa = 1;
+
+        trocarTela(`
+
+            <div class="numero">
+                Primeiro, uma avaliação
+            </div>
+
+            <h1>
+                Miah, como você avalia nosso primeiro date?
+            </h1>
+
+            <p>
+                De 0 a 5.
+            </p>
+
+            <div class="estrelas" id="estrelas">
+
+                <button class="estrela" onclick="avaliar(1)">★</button>
+                <button class="estrela" onclick="avaliar(2)">★</button>
+                <button class="estrela" onclick="avaliar(3)">★</button>
+                <button class="estrela" onclick="avaliar(4)">★</button>
+                <button class="estrela" onclick="avaliar(5)">★</button>
+
+            </div>
+
+            <div class="nota" id="notaTexto">
+                Escolha sua avaliação
+            </div>
+
+            <button
+                class="principal"
+                id="continuarNota"
+                onclick="depoisDaAvaliacao()"
+                style="display:none;"
+            >
+                Continuar
+            </button>
+
+            ${progresso(1)}
+
+        `);
+    }
+
+
+    function avaliar(nota) {
+
+        respostas.nota = nota;
+
+        const estrelas = document.querySelectorAll(".estrela");
+
+        estrelas.forEach((estrela, indice) => {
+
+            if(indice < nota) {
+                estrela.classList.add("ativa");
+            } else {
+                estrela.classList.remove("ativa");
+            }
+
+        });
+
+        document.getElementById("notaTexto").innerText =
+            nota + (nota === 1 ? " estrela" : " estrelas");
+
+        document.getElementById("continuarNota").style.display =
+            "inline-block";
+    }
+
+
+    function depoisDaAvaliacao() {
+
+        trocarTela(`
+
+            <div class="coracao">♡</div>
+
+            <h1>
+                Fico feliz pela sua avaliação.
+            </h1>
+
+            <p>
+                Mas ainda tenho mais uma coisa para perguntar.
+            </p>
+
+            <button class="principal" onclick="segundoDate()">
+                Continuar
+            </button>
+
+            ${progresso(1)}
+
+        `);
+    }
+
+
+
+    /* --------------------------------
+       ETAPA 2
+       SEGUNDO DATE
+    -------------------------------- */
+
+    function segundoDate() {
+
+        etapa = 2;
+
+        trocarTela(`
+
+            <div class="numero">
+                Uma pergunta importante
+            </div>
+
+            <h1>
+                Miah, você aceitaria um segundo date comigo?
+            </h1>
+
+            <p>
+                Pode responder com sinceridade.
+            </p>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="respostaSegundoDate('Sim')"
+                >
+                    Sim ❤️
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="respostaSegundoDate('Talvez')"
+                >
+                    Talvez
+                </button>
+
+            </div>
+
+            ${progresso(2)}
+
+        `);
+    }
+
+
+    function respostaSegundoDate(resposta) {
+
+        respostas.segundoDate = resposta;
+
+        if(resposta === "Sim") {
+
+            perguntarDia22();
+
+        } else {
+
+            trocarTela(`
+
+                <div class="numero">
+                    Tudo bem
+                </div>
+
+                <h1>
+                    Então deixa eu fazer o convite completo antes da sua decisão.
+                </h1>
+
+                <p>
+                    Talvez eu consiga transformar esse “talvez” em um “sim”.
+                </p>
+
+                <button
+                    class="principal"
+                    onclick="perguntarDia22()"
+                >
+                    Continuar
+                </button>
+
+                ${progresso(2)}
+
+            `);
+
+        }
+
+    }
+
+
+
+    /* --------------------------------
+       ETAPA 3
+       DATA
+    -------------------------------- */
+
+    function perguntarDia22() {
+
+        etapa = 3;
+
+        trocarTela(`
+
+            <div class="numero">
+                Sobre a data
+            </div>
+
+            <h1>
+                Dia 22 você está livre?
+            </h1>
+
+            <p>
+                Tenho uma ideia para esse dia.
+            </p>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="dia22('Sim')"
+                >
+                    Sim
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="dia22('Não')"
+                >
+                    Não
+                </button>
+
+            </div>
+
+            ${progresso(3)}
+
+        `);
+    }
+
+
+    function dia22(resposta) {
+
+        if(resposta === "Sim") {
+
+            respostas.data = "Dia 22";
+
+            convitePasseli();
+
+        } else {
+
+            perguntarDia29();
+
+        }
+
+    }
+
+
+    function perguntarDia29() {
+
+        trocarTela(`
+
+            <div class="numero">
+                Outra possibilidade
+            </div>
+
+            <h1>
+                E dia 29, você está livre?
+            </h1>
+
+            <p>
+                Talvez esse dia funcione melhor.
+            </p>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="dia29('Sim')"
+                >
+                    Sim
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="dia29('Não')"
+                >
+                    Não
+                </button>
+
+            </div>
+
+            ${progresso(3)}
+
+        `);
+    }
+
+
+    function dia29(resposta) {
+
+        if(resposta === "Sim") {
+
+            respostas.data = "Dia 29";
+
+            convitePasseli();
+
+        } else {
+
+            respostas.data = "A combinar";
+
+            trocarTela(`
+
+                <div class="numero">
+                    Sem problema
+                </div>
+
+                <h1>
+                    Então teremos que encontrar uma data que funcione para nós dois.
+                </h1>
+
+                <p>
+                    Mas ainda quero te mostrar o que eu tinha pensado.
+                </p>
+
+                <button
+                    class="principal"
+                    onclick="convitePasseli()"
+                >
+                    Quero ver
+                </button>
+
+                ${progresso(3)}
+
+            `);
+
+        }
+
+    }
+
+
+
+    /* --------------------------------
+       ETAPA 4
+       PASSELI
+    -------------------------------- */
+
+    function convitePasseli() {
+
+        etapa = 4;
+
+        trocarTela(`
+
+            <div class="numero">
+                Meu convite
+            </div>
+
+            <h1>
+                Miah, você gostaria de ir comigo ao Passeli Boulangerie?
+            </h1>
+
+            <div class="local">
+
+                <strong>
+                    Passeli Boulangerie
+                </strong>
+
+                <span>
+                    Av. Fleming, 417 • Belo Horizonte
+                </span>
+
+                <br>
+
+                <a
+                    class="link-local"
+                    href="https://www.google.com/maps/search/?api=1&query=Passeli+Boulangerie+Av.+Fleming+417+Belo+Horizonte+MG"
+                    target="_blank"
+                >
+                    Ver o local ↗
+                </a>
+
+            </div>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="respostaPasseli('Sim')"
+                >
+                    Sim ❤️
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="respostaPasseli('Não')"
+                >
+                    Não
+                </button>
+
+            </div>
+
+            ${progresso(4)}
+
+        `);
+    }
+
+
+    function respostaPasseli(resposta) {
+
+        respostas.local = resposta;
+
+        if(resposta === "Sim") {
+
+            perguntarHorario();
+
+        } else {
+
+            segundoDateContinua();
+
+        }
+
+    }
+
+
+
+    /* --------------------------------
+       CASO NÃO QUEIRA O LOCAL
+    -------------------------------- */
+
+    function segundoDateContinua() {
+
+        trocarTela(`
+
+            <div class="numero">
+                Tudo bem
+            </div>
+
+            <h1>
+                Mas o segundo date continua de pé?
+            </h1>
+
+            <p>
+                O lugar a gente pode escolher juntos.
+            </p>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="dateContinua('Sim')"
+                >
+                    Sim ❤️
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="dateContinua('Não')"
+                >
+                    Não
+                </button>
+
+            </div>
+
+            ${progresso(4)}
+
+        `);
+    }
+
+
+    function dateContinua(resposta) {
+
+        if(resposta === "Sim") {
+
+            respostas.segundoDate = "Sim";
+            respostas.local = "A escolher";
+
+            finalizar();
+
+        } else {
+
+            respostas.segundoDate = "Não";
+
+            trocarTela(`
+
+                <div class="coracao">♡</div>
+
+                <h1>
+                    Tudo bem.
+                </h1>
+
+                <p class="mensagem-final">
+                    Fico feliz que você tenha respondido e,
+                    independentemente disso, gostei muito do nosso primeiro momento juntos.
+                </p>
+
+                <button
+                    class="reiniciar"
+                    onclick="avaliacao()"
+                >
+                    Recomeçar
+                </button>
+
+                ${progresso(5)}
+
+            `);
+
+        }
+
+    }
+
+
+
+    /* --------------------------------
+       ETAPA 5
+       HORÁRIO
+    -------------------------------- */
+
+    function perguntarHorario() {
+
+        etapa = 5;
+
+        trocarTela(`
+
+            <div class="numero">
+                Último detalhe
+            </div>
+
+            <h1>
+                19h fica bom para você?
+            </h1>
+
+            <p>
+                Para deixar tudo combinado.
+            </p>
+
+            <div class="botoes">
+
+                <button
+                    class="principal"
+                    onclick="horario19('Sim')"
+                >
+                    Sim
+                </button>
+
+                <button
+                    class="secundario"
+                    onclick="horario19('Não')"
+                >
+                    Não
+                </button>
+
+            </div>
+
+            ${progresso(5)}
+
+        `);
+    }
+
+
+    function horario19(resposta) {
+
+        if(resposta === "Sim") {
+
+            respostas.horario = "19h";
+
+            finalizar();
+
+        } else {
+
+            escolherHorario();
+
+        }
+
+    }
+
+
+    function escolherHorario() {
+
+        trocarTela(`
+
+            <div class="numero">
+                Sem problema
+            </div>
+
+            <h1>
+                Qual horário seria melhor para você?
+            </h1>
+
+            <p>
+                Me fala o horário que ficaria melhor.
+            </p>
+
+            <input
+                type="text"
+                id="horarioEscolhido"
+                placeholder="Ex.: 20h"
+            >
+
+            <button
+                class="principal"
+                onclick="salvarHorario()"
+            >
+                Confirmar horário
+            </button>
+
+            ${progresso(5)}
+
+        `);
+    }
+
+
+    function salvarHorario() {
+
+        const horario =
+            document.getElementById("horarioEscolhido").value.trim();
+
+        if(horario === "") {
+
+            alert("Digite um horário.");
+
+            return;
+        }
+
+        respostas.horario = horario;
+
+        finalizar();
+
+    }
+
+
+
+    /* --------------------------------
+       FINAL
+    -------------------------------- */
+
+    function finalizar() {
+
+        let localTexto =
+            respostas.local === "Sim"
+            ? "Passeli Boulangerie"
+            : "A escolher juntos";
+
+        let horarioTexto =
+            respostas.horario
+            ? respostas.horario
+            : "A combinar";
+
+        trocarTela(`
+
+            <div class="coracao">
+                ❤️
+            </div>
+
+            <div class="numero">
+                Resposta recebida
+            </div>
+
+            <h1>
+                Miah, então estamos combinados. ❤️
+            </h1>
+
+            <div class="resumo">
+
+                <b>Data:</b>
+                ${respostas.data}
+
+                <br>
+
+                <b>Horário:</b>
+                ${horarioTexto}
+
+                <br>
+
+                <b>Local:</b>
+                ${localTexto}
+
+            </div>
+
+            <p class="mensagem-final">
+                Fico feliz que você tenha aceitado viver mais um momento comigo.
+            </p>
+
+            <button
+                class="reiniciar"
+                onclick="avaliacao()"
+            >
+                Recomeçar
+            </button>
+
+            ${progresso(5)}
+
+        `);
+
+    }
+
+
+    avaliacao();
+
+</script>
+
+</body>
+</html>
